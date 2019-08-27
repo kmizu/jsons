@@ -52,4 +52,9 @@ class JsonParserSpec extends AirSpec {
     val result = parse(""" {"test" : { }} """)
     result.value.get shouldBe JObject(Vector(JMember("test",JObject(Vector()))))
   }
+
+  def `simple object, which value is {"test2":1}, is parsed`: Unit = {
+    val result = parse(""" {"test" : {"test2" : 1 }} """)
+    JObject(Vector(JMember("test1",JObject(Vector(JMember("test2",JNumber(ULeft(1))))))))
+  }
 }

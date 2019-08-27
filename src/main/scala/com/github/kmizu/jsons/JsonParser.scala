@@ -38,7 +38,7 @@ object JsonParser extends SCombinator[JObject] {
     _ <- token("\"")
   } yield JString(elements.mkString(""))
 
-  lazy val jsonNumber: Parser[JNumber] = set(('0' to '9').toSeq).+.map{_.mkString} ^^ {string =>
+  lazy val jsonNumber: Parser[JNumber] = set(('0' to '9').toSeq).+.map{_.mkString} << space.* ^^ {string =>
     JNumber(ULeft(string.toInt))
   }
 }
