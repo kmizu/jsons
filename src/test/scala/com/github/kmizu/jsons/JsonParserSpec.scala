@@ -18,6 +18,11 @@ class JsonParserSpec extends AirSpec {
     result.value.get shouldBe JObject(Seq(JMember("test", JString("Kota Mizushima"))))
   }
 
+  def `simple object, which value is String (unicode escape), is parsed`: Unit = {
+    val result = parse(" {\"test\" : \"\\u0041\\r\\n\\t\" } ")
+    result.value.get shouldBe JObject(Seq(JMember("test", JString("A\r\n\t"))))
+  }
+
   def `simple object, which value is Number, is parsed`: Unit = {
     val result = parse(""" {"test" : 35} """)
     result.value.get shouldBe JObject(Vector(JMember("test",JNumber(ULeft(35)))))
